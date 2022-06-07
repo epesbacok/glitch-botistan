@@ -1,0 +1,33 @@
+{
+  "name": "hello-express",
+  "version": "0.0.1",
+  "description": "Gelişmiş Botlist Bot",
+  "main": "botlist.js",
+  "scripts": {
+    "start": "node botlist.js"
+  },
+  "dependencies": {
+    "dblapi.js": "^2.4.1",
+    "discord-buttons": "^4.0.0-deprecated",
+    "discord.js": "^12.5.0",
+    "express": "^4.17.1",
+    "fs": "^0.0.2",
+    "moment": "^2.29.1",
+    "moment-duration-format": "^2.3.2",
+    "ms": "^2.1.2",
+    "quick.db": "^7.1.2",
+    "wio.db": "^4.0.22"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/hello-express"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
