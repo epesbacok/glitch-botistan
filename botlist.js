@@ -12,7 +12,7 @@ const moment = require('moment')
 require('moment-duration-format')
 moment.locale('tr')
 
-const Peppe = message => {
+const nova = message => {
   console.log(`${message}`)
 }
 
@@ -21,8 +21,8 @@ client.aliases = new Discord.Collection()
 fs.readdir('./komutlar/', (Error, Files) => {
     if (Error) console.error(Error)
     Peppe(`${Files.length} Komut Yüklenecek!`)
-    Files.forEach(Pepe => {
-        let Props = require(`./komutlar/${Pepe}`)
+    Files.forEach(nova => {
+        let Props = require(`./komutlar/${nova}`)
         Peppe(`Yüklenen Komut: ${Props.help.name}.`)
         client.commands.set(Props.help.name, Props)
         Props.conf.aliases.forEach(Alias => {
@@ -162,12 +162,13 @@ db.delete(`BOT_${member.id}`)
 // [ ----------------------------------------------] \\
 // [ ----------------------------------------------] \\
 // [ ----------------------------------------------] \\
-client.on('voiceStateUpdate', async (Code, Pepe) => {
-if (Pepe.member.user.bot && Pepe.channelID && Pepe.member.user.id == client.user.id && !Pepe.selfDeaf) {
-Pepe.setSelfDeaf(true)
+client.on('voiceStateUpdate', async (botlist, nova) => {
+if (nova.member.user.bot && nova.channelID && nova.member.user.id == client.user.id && !nova.selfDeaf) {
+nova.setSelfDeaf(true)
 }
-if (Pepe.member.user.bot && Pepe.channelID && Pepe.member.user.id == client.user.id && !Pepe.selfMute) {
-Pepe.setSelfMute(true)
+if (nova.member.user.bot && nova.channelID && nova.member.user.id == client.user.id && !nova.selfMute) {
+nova
+	.setSelfMute(true)
 }
 })
 // [ ----------------------------------------------] \\
