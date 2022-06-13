@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const fs = require('fs')
+
 const http = require('http')
 const express = require('express')
 const ayarlar = require('./ayarlar.json')
@@ -16,63 +16,19 @@ const nova = message => {
   console.log(`${message}`)
 }
 
-client.commands = new Discord.Collection()
-client.aliases = new Discord.Collection()
-fs.readdir('./komutlar/', (Error, Files) => {
-    if (Error) console.error(Error)
-    Peppe(`${Files.length} Komut Yüklenecek!`)
-    Files.forEach(nova => {
-        let Props = require(`./komutlar/${nova}`)
-        Peppe(`Yüklenen Komut: ${Props.help.name}.`)
-        client.commands.set(Props.help.name, Props)
-        Props.conf.aliases.forEach(Alias => {
-        client.aliases.set(Alias, Props.help.name)
-})})})
+client.commands = new Discord.Collection();
+const fs = require('fs');
 
-client.reload = command => {
- return new Promise((Resolve, Reject) => {
- try {
- delete require.cache[require.resolve(`./komutlar/${command}`)]
- let CMD = require(`./komutlar/${command}`)
- client.commands.delete(command)
- client.aliases.forEach((CMD, Alias) => {
- if (CMD === command) client.aliases.delete(Alias)
- })
- client.commands.set(command, CMD)
- CMD.conf.aliases.forEach(Alias => {
- client.aliases.set(Alias, CMD.help.name)
- })
- Resolve()
- } catch (Hata) {
- Reject(Hata)
-}})}
-
-client.load = command => {
- return new Promise((Resolve, Reject) => {
- try {
- let CMD = require(`./komutlar/${command}`)
-client.commands.set(command, CMD)
-CMD.conf.aliases.forEach(Alias => {
-client.aliases.set(Alias, CMD.help.name)
-})
-Resolve()
-} catch (Hata) {
-Reject(Hata)
-}})}
-
-client.unload = command => {
- return new Promise((Resolve, Reject) => {
- try {
- delete require.cache[require.resolve(`./komutlar/${command}`)]
- let CMD = require(`./komutlar/${command}`)
- client.commands.delete(command)
- client.aliases.forEach((CMD, Alias) => {
- if (CMD === command) client.aliases.delete(Alias)
- })
- Resolve()
- } catch (Hata) {
- Reject(Hata)
-}})}
+fs.readdir("./komutlar/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach((file) => {
+    if (!file.endsWith(".js")) return;
+    let cmd = require(`./komutlar/${file}`);
+    let cmdFileName = file.split(".")[0];
+    console.log(`Komut Yükleme Çalışıyor: ${cmdFileName}`);
+    client.commands.set(cmd.help.name, cmd);
+  });
+});
 
 client.on('message',async message => {
   let client = message.client
